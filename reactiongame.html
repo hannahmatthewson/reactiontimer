@@ -1,0 +1,173 @@
+<html>
+
+    <head>
+        
+        <title>Reaction Timer</title>
+        
+        <style type="text/css">
+            
+            body {
+                
+                font-family: sans-serif;
+                margin: 0;
+                
+            }
+            
+            div.header-banner > h1 {
+        
+                font-size: 50px;
+                padding-top: 120px;
+            }
+            
+            div.header-banner > p {
+                
+                font-size: 30px;
+                
+            }
+            
+            .navbar {
+                
+                height: 50px;
+                width: 100%;
+                background-color: white;
+                color: black;
+                
+            }
+            
+            .header-banner {
+                
+                background-color: lightblue;
+                color: white;
+                height: 500px;
+                width: 100%;
+                text-align: center;
+                
+            }
+        
+            #shape {
+                
+                width: 200px;
+                height: 200px;
+                background-color: red;
+                display: none;
+                position: relative;
+                
+            }
+            
+            .bold {
+                
+                font-weight: bold;
+                
+            }
+        
+        </style>
+    
+    </head>
+
+    <body>
+        
+        <div class="navbar">
+            
+            
+        
+        </div>
+        
+        <div class="header-banner">
+            
+            <h1>Reaction Timer</h1>
+            
+            <p>Put yourself against the clock and answer the question:<br>
+               How quick are you?</p>
+        
+        </div>
+        
+        <h2>Start testing your reactions here!</h2>
+        
+        <p>
+            <strong>Aim:</strong>
+            Click on the boxes and circles as quickly as you can.
+        </p>
+        
+        <p class="bold">Your time: <span id="timeTaken"></span></p>
+        
+        <div id="shape"></div>
+        
+        <script type="text/javascript">
+            
+            var start = new Date().getTime();
+            
+            function getRandomColor() {
+                
+                var letters = '0123456789ABCDEF'.split('');
+    
+                var color = '#';
+    
+                for (var i = 0; i < 6; i++ ) {
+        
+                    color += letters[Math.floor(Math.random() * 16)];
+    
+                }
+    
+                return color;
+
+            }
+            
+            function makeShapeAppear() {
+                
+                var top = Math.random() * 400;
+                
+                var left = Math.random() * 400;
+                
+                var width = (Math.random() * 100) + 200;
+                
+                if (Math.random() > 0.5) {
+                    
+                    document.getElementById("shape").style.borderRadius = "50%";
+                    
+                } else {
+                    
+                    document.getElementById("shape").style.borderRadius = "0";
+                    
+                }
+                
+                document.getElementById("shape").style.backgroundColor = getRandomColor();
+                
+                document.getElementById("shape").style.width = width + "px";
+                
+                document.getElementById("shape").style.height = width + "px";
+                
+                document.getElementById("shape").style.top = top + "px";
+                
+                document.getElementById("shape").style.left = left + "px";
+    
+                document.getElementById("shape").style.display = "block";
+                
+                start = new Date().getTime();
+
+            }
+            
+            function appearAfterDelay() {
+                
+                setTimeout(makeShapeAppear, Math.random() * 2000);
+                
+            }
+            
+            appearAfterDelay();
+            
+            document.getElementById("shape").onclick = function() {
+                
+                document.getElementById("shape").style.display = "none";
+                
+                var end = new Date().getTime();
+                
+                var timeTaken = (end - start) / 1000;
+                
+                document.getElementById("timeTaken").innerHTML = timeTaken + "s";
+                
+                appearAfterDelay();
+                
+            }
+            
+        </script>
+        
+    </body>
